@@ -73,7 +73,7 @@ class TweetSpawner {
 
     const { node, speed } = entity;
 
-    speed.speed = Math.max(0.01, Math.log(1000 / status.favorite_count + 0.5) / 50);
+    speed.speed = Math.max(0.01, Math.log(1000 / (status.favorite_count + 1) + 0.5) / 100);
 
     node.node = this.createTweetNode(status);
 
@@ -82,7 +82,7 @@ class TweetSpawner {
   createTweetNode(status) {
     const prism = this.prism;
     const node = prism.createTransformNode(lumin.MAT4_IDENTITY);
-    node.setLocalPosition([0.05 + (Math.random() * 0.15 - 0.075), -0.25, Math.random() * 0.4 - 0.2]);
+    node.setLocalPosition([0.05 + (Math.random() * 0.15 - 0.075), -0.25, Math.floor(Math.random() * 4) / 10 - 0.2]);
 
     const imageNode = lumin.ui.UiImage.Create(prism, status.user.imagePath, 0.06, 0.06, true);
     imageNode.setAlignment(lumin.ui.Alignment.CENTER_LEFT);
@@ -112,7 +112,7 @@ class TweetSpawner {
     this.fetchingStatuses = true;
 
     this.statuses = await fetch(
-      `https://api.twitter.com/1.1/search/tweets.json?q=${this.term}&result_type=popular&lang=en`,
+      `https://api.twitter.com/1.1/search/tweets.json?q=${this.term}&result_type=mixed&lang=en`,
       { headers: { authorization: `bearer ${config.TWITTER_BEARER}` } }
     )
       .then(r => r.json())
