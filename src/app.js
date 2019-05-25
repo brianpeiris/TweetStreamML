@@ -24,7 +24,7 @@ class Controller extends lumin.PrismController {
     const prism = this.getPrism();
 
     const ecs = new EntityManager();
-    this.systems.push(new TweetSpawner(ecs, prism, this.baseFilePath, "magicleap"));
+    this.systems.push(new TweetSpawner(ecs, prism, this.baseFilePath, "vr"));
     this.systems.push(new FloatSystem(ecs));
 
     const bottomImage = lumin.ui.UiImage.Create(prism, "res/bottom.png", 0.5, 0.5);
@@ -73,7 +73,7 @@ class TweetSpawner {
 
     const { node, speed } = entity;
 
-    speed.speed = 0.01 + Math.random() * 0.05;
+    speed.speed = Math.max(0.01, Math.log(1000 / status.favorite_count + 0.5) / 50);
 
     node.node = this.createTweetNode(status);
 
@@ -112,7 +112,7 @@ class TweetSpawner {
     this.fetchingStatuses = true;
 
     this.statuses = await fetch(
-      `https://api.twitter.com/1.1/search/tweets.json?q=${this.term}&result_type=mixed&lang=en`,
+      `https://api.twitter.com/1.1/search/tweets.json?q=${this.term}&result_type=popular&lang=en`,
       { headers: { authorization: `bearer ${config.TWITTER_BEARER}` } }
     )
       .then(r => r.json())
