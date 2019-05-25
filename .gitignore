@@ -1,0 +1,5 @@
+.out/
+bin
+digest.sha512.signed
+node_modules/
+src/config.js

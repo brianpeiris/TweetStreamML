@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "build": "npx rollup -c",
+    "start": "magic-script run"
+  },
+  "private": true,
+  "devDependencies": {
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "prettier": "^1.16.4",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "rollup": "^1.1.2",
+    "rollup-plugin-commonjs": "^9.3.4",
+    "rollup-plugin-node-resolve": "^4.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "gl-matrix": "^3.0.0",
+    "magic-script-polyfills": "^2.0.0",
+    "tiny-ecs": "^2.0.0"
+  }
+}
